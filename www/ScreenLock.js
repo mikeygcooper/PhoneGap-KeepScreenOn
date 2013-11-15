@@ -47,7 +47,7 @@ var screenLock = {
 	defaultSuccessCallback : function()
 	{
 		return true;
-	}
+	},
 
 	/*
 	*	Toggle the screenlock

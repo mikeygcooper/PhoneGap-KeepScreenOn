@@ -5,43 +5,60 @@
 *
 *	Toggle between allowing the device screen to timeout (sleep)
 */
-var screenLock = {
 
-	// Set a global screen locked variable
-	screenlocked: false,
+(function() {
+	var cordovaRef = window.PhoneGap || window.cordova || window.Cordova;
 
-	/*
-	* Acquire a screenlock (prevent the device from screen idle)
-	*/
-	acquireScreenLock: function(successCallback)
+	function ScreenLock() { }
+
+	ScreenLock.prototype.locked = false;
+
+	ScreenLock.prototype.acquireScreenLock = function()
 	{
-		cordova.exec(successCallback, screenLock.defaultFailCallback, 'ScreenLock', 'acquire', []);
-	},
+		return cordova.exec(ScreenLock.defaultSuccessCallback, screenLock.defaultFailCallback, 'ScreenLock', 'acquire', []);
+	};
 
-	/*
-	* Release the screenlock (enable the device screen to idle)
-	*/
-	releaseScreenLock: function(successCallback)
+	ScreenLock.prototype.releaseScreenLock = function()
 	{
-		cordova.exec(successCallback, screenLock.defaultFailCallback, 'ScreenLock', 'release', []);
-	},
+		return cordova.exec(ScreenLock.defaultSuccessCallback, screenLock.defaultFailCallback, 'ScreenLock', 'release', []);
+	};
 
-	/*
-	* Default fail callback
-	*/
-	defaultFailCallback: function()
+	ScreenLock.prototype.toggleScreenLock = function()
+	{
+		if(!ScreenLock.locked) {
+			ScreenLock.acquireScreenLock();
+		} else {
+			ScreenLock.releaseScreenLock();
+		}
+	};
+
+	ScreenLock.prototype.defaultFailCallback = function()
 	{
 		alert('Screen Lock Failed');
 	},
 
-	/*
-	*	Toggle the screenlock
-	*/
-	toggleScreenLock: function() {
-		if(this.screenLock) {
-			this.releaseScreenLock();
-		} else {
-			this.acquireScreenlock();
+	ScreenLock.prototype.defaultSuccessCallback = function()
+	{
+		return true;
+	}
+
+	if(cordovaRef && cordovaRef.addConstructor) {
+		cordovaRef.addConstructor(init);
+	} else {
+		init();
+	}
+
+	function init() {
+		if(!window.plugins) {
+			window.plugins = {};
+		}
+		if(!window.plugins.screenLock) {
+			window.plugins.screenLock = new ScreenLock();
 		}
 	}
-}
+
+	if(typeof module != 'undefined' && module.exports) {
+		module.exports = new ScreenLock();
+	}
+
+})();

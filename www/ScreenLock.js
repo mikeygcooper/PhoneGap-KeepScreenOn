@@ -15,7 +15,7 @@ var screenLock = {
 	*/
 	acquireScreenLock: function()
 	{
-		cordova.exec(this.defaultSuccessCallback, this.defaultFailCallback, 'ScreenLock', 'aquire', []);
+		cordova.exec(this.defaultSuccessCallback, this.defaultFailCallback, 'ScreenLock', 'acquire', []);
 		screenLock.screenlocked = true;
 	},
 

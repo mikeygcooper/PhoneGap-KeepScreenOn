@@ -38,4 +38,5 @@
 		<source-file src="src/ios/ScreenLock.m" />
 		<source-file src="src/ios/ScreenLock.h" />
 	</platform>
-
+	
+</plugin>

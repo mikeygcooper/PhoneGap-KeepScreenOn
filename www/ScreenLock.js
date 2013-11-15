@@ -5,60 +5,58 @@
 *
 *	Toggle between allowing the device screen to timeout (sleep)
 */
+var screenLock = {
 
-(function() {
-	var cordovaRef = window.PhoneGap || window.cordova || window.Cordova;
+	// Set a global screen locked variable
+	screenlocked: false,
 
-	function ScreenLock() { }
-
-	ScreenLock.prototype.locked = false;
-
-	ScreenLock.prototype.acquireScreenLock = function()
+	/*
+	* Acquire a screenlock (prevent the device from screen idle)
+	*/
+	acquireScreenLock: function()
 	{
-		return cordova.exec(ScreenLock.defaultSuccessCallback, screenLock.defaultFailCallback, 'ScreenLock', 'acquire', []);
-	};
-
-	ScreenLock.prototype.releaseScreenLock = function()
-	{
-		return cordova.exec(ScreenLock.defaultSuccessCallback, screenLock.defaultFailCallback, 'ScreenLock', 'release', []);
-	};
-
-	ScreenLock.prototype.toggleScreenLock = function()
-	{
-		if(!ScreenLock.locked) {
-			ScreenLock.acquireScreenLock();
-		} else {
-			ScreenLock.releaseScreenLock();
-		}
-	};
-
-	ScreenLock.prototype.defaultFailCallback = function()
-	{
-		alert('Screen Lock Failed');
+		cordova.exec(this.defaultSuccessCallback, this.defaultFailCallback, 'ScreenLock', 'aquire', []);
+		screenLock.screenlocked = true;
 	},
 
-	ScreenLock.prototype.defaultSuccessCallback = function()
+	/*
+	* Release the screenlock (enable the device screen to idle)
+	*/
+	releaseScreenLock: function()
+	{
+		cordova.exec(this.defaultSuccessCallback,this.defaultFailCallback, 'ScreenLock', 'release', []);
+		screenLock.screenlocked = false;
+	},
+
+	/*
+	* Acquire a partial screenlock (allow the device to dim, but not sleep)
+	*/
+	acquirePartialScreenLock: function()
+	{
+		cordova.exec(this.defaultSuccessCallback,this.defaultFailCallback, 'ScreenLock', 'partial', []);
+	},
+
+	/*
+	* Default fail callback
+	*/
+	defaultFailCallback: function()
+	{
+		return false;
+	},
+
+	defaultSuccessCallback : function()
 	{
 		return true;
 	}
 
-	if(cordovaRef && cordovaRef.addConstructor) {
-		cordovaRef.addConstructor(init);
-	} else {
-		init();
-	}
-
-	function init() {
-		if(!window.plugins) {
-			window.plugins = {};
-		}
-		if(!window.plugins.screenLock) {
-			window.plugins.screenLock = new ScreenLock();
+	/*
+	*	Toggle the screenlock
+	*/
+	toggleScreenLock: function() {
+		if(this.screenLock) {
+			this.releaseScreenLock();
+		} else {
+			this.acquireScreenlock();
 		}
 	}
-
-	if(typeof module != 'undefined' && module.exports) {
-		module.exports = new ScreenLock();
-	}
-
-})();
+}

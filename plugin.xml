@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="com.mikeyalder.screenlock" version="1.0.0">
+
+	<name>ScreenLock</name>
+	<author>Mikey Alder</author>
+
+	<description>
+		This plugin allows you to aquire a screen lock through phonegap
+	</description>
+
+	<license>MIT</license>
+
+	<js-module src="www/ScreenLock.js" name="ScreenLock">
+		<clobbers target="ScreenLock">
+	</js-module>
+
+	<engines>
+		<engine name="cordova" version="&gt;=3.0.0" />
+	</engines>
+
+	<platform name="android">
+		<config-file target="res/xml/config.xml" parent="*/">
+			<feature name="ScreenLock">
+				<param name="android-package" value="com.mikeyalder.screenlock" />
+			</feature>
+		</config-file>
+
+		<source-file src="src/android/ScreenLock.java" target-dir="src/com/mikeyalder/screenlock" />
+	</platform>
+
+	<platform name="ios">
+		<config-file target="config.xml" parent="*/">
+			<feature name="ScreenLock">
+				<param name="ios-package" value="ScreenLock" />
+			</feature>
+		</config-file>
+
+		<source-file src="src/ios/ScreenLock.m" />
+		<source-file src="src/ios/ScreenLock.h" />
+	</platform>
+

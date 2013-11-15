@@ -8,7 +8,7 @@
 {
 	CDVPluginResult* pluginResult = nil;
 	NSString* callbackString = nil;
-	NSString* callbackId = [arguments objectAtIndex:0];
+	NSString* callbackId = [command.arguments objectAtIndex:0];
 
 	// get the local UIApplication
 	UIApplication* app = [UIApplication shareApplication];

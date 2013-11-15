@@ -38,7 +38,7 @@
 	NSString* callbackId = [command.arguments objectAtIndex:0];
 
 	// get the local UIApplication
-	UIApplication* app = [UIApplication shareApplication];
+	UIApplication* app = [UIApplication sharedApplication];
 
 	// check the idle timer isn't already disabled
 	if([app isIdleTimerDisabled]) {

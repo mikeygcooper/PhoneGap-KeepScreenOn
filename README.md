@@ -13,15 +13,15 @@ Download the plugin (git clone https://github.com/MikeyAlder/PhoneGap-KeepScreen
 
 Create the folder *com/mikeyalder* in your android projects *src* folder
 
-Copy over the* KeepScreenOn.java* file to this directory
+Copy over the _KeepScreenOn.java_ file to this directory
 
-Add the following to your *config.xml*
+Add the following to your _config.xml_
 
     <feature name="KeepScreenOn">
         <param name="android-package" value="com.mikeyalder.KeepScreenOn" />
     </feature>
 
-Add the *KeepScreenOn.js* file to your *assets/www* folder and add the following code to your index.html
+Add the _KeepScreenOn.js_ file to your *assets/www* folder and add the following code to your index.html
 
     <script type="text/javascript" src="KeepScreenOn.js"></script>
 

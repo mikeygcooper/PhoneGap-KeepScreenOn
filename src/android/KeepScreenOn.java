@@ -6,7 +6,7 @@
 *	Toggle between allowing the device screen to timeout (sleep)
 */
 
-package com.mikeyalder.keepscreenon;
+package com.mikeyalder.KeepScreenOn;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;

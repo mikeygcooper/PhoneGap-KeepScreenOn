@@ -16,7 +16,7 @@ var keepScreenOn = {
 	enable: function()
 	{
 		cordova.exec(null, null, 'KeepScreenOn', 'enable', []);
-		screenLock.screenlocked = true;
+		keepScreenOn.screenOnFlag = true;
 	},
 
 	/*
@@ -25,8 +25,8 @@ var keepScreenOn = {
 	disable: function()
 	{
 		cordova.exec(null, null, 'KeepScreenOn', 'disable', []);
-		screenLock.screenlocked = false;
-	}
+		keepScreenOn.screenOnFlag = false;
+	},
 
 	/*
 	*	Toggle the screenlock

@@ -6,7 +6,7 @@
 *	Toggle between allowing the device screen to timeout (sleep)
 */
 
-package com.mikeyalder.KeepScreenOn;
+package com.mikeyalder;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
@@ -21,14 +21,14 @@ public class KeepScreenOn extends CordovaPlugin {
 	public boolean execute(String action, JSONArray args, CallbackContext callback) throws JSONException {
 		// grab the correct methods
 		if(action.equalsIgnoreCase("enable")) {
-			cordova.getActivity.runOnUiThread(new Runnable() {
+			cordova.getActivity().runOnUiThread(new Runnable() {
 				public void run() {
 					cordova.getActivity().getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 				}
 			});
 			return true;
 		} else if(action.equalsIgnoreCase("disable")) {
-			cordova.getActivity.runOnUiThread( new Runnable() {
+			cordova.getActivity().runOnUiThread( new Runnable() {
 				public void run() {
 					cordova.getActivity().getWindow().clearFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 				}

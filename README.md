@@ -5,8 +5,12 @@ Plugin for PhoneGap
 
 This small plugin allows you to keep the screen on whilst your application runs. Useful if you need to keep the screen on without the user having to interact with the application.
 
+
 ###Installation
 I'm currently working on creating a PhoneGap Build version of the plugin, however for now you need to manual install the plugins
+
+
+
 
 ####Android
 Download the plugin (git clone https://github.com/MikeyAlder/PhoneGap-KeepScreenOn). Save the plugin within your phonegap project *Plugin* directory to keep things clean
@@ -24,6 +28,27 @@ Add the following to your **config.xml**
 Add the **KeepScreenOn.js** file to your *assets/www* folder and add the following code to your index.html
 
     <script type="text/javascript" src="KeepScreenOn.js"></script>
+  
+  
+  
+  
+####iOS
+Download the plugin (git clone https://github.com/MikeyAlder/PhoneGap-KeepScreenOn). Save the plugin within your phonegap project *Plugin* directory to keep things clean
+
+Copy the **KeepScreenOn.h** and **KeepScreenOn.m** plugin files to your xcode project _Plugins_ folder and add to your project
+
+Add the following to your **config.xml**
+
+    <feature name="KeepScreenOn">
+        <param name="ios-package" value="KeepScreenOn" />
+    </feature>
+
+Add the **KeepScreenOn.js** file to your *assets/www* folder and add the following code to your index.html
+
+    <script type="text/javascript" src="KeepScreenOn.js"></script>
+    
+    
+    
 
 ###Use
 To use the plugin just call either

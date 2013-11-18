@@ -1,0 +1,41 @@
+/*
+*	PhoneGap Plugin KeepScreenOn
+*	Author: Mikey Alder
+*	Twitter: @MikeyAlder
+*
+*	Toggle between allowing the device screen to timeout (sleep)
+*/
+var keepScreenOn = {
+
+	// Set a global screen locked variable
+	screenOnFlag: false,
+
+	/*
+	* Acquire a screenlock (prevent the device from screen idle)
+	*/
+	enable: function()
+	{
+		cordova.exec(null, null, 'KeepScreenOn', 'enable', []);
+		screenLock.screenlocked = true;
+	},
+
+	/*
+	* Release the screenlock (enable the device screen to idle)
+	*/
+	disable: function()
+	{
+		cordova.exec(null, null, 'KeepScreenOn', 'disable', []);
+		screenLock.screenlocked = false;
+	}
+
+	/*
+	*	Toggle the screenlock
+	*/
+	toggleKeepScreenOn: function() {
+		if(this.screenOnFlag) {
+			this.disable();
+		} else {
+			this.enable();
+		}
+	}
+}

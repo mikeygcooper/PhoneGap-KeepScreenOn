@@ -1,52 +1,42 @@
 #import "KeepScreenOn.h"
-#import <Cordova/CDV.h>
 
 @implementation KeepScreenOn
 
-- (void) enable:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
+- (void)enable:(CDVInvokedUrlCommand*)command;
 {
-    CDVPluginResult* result = nil;
-    NSString* jsString = nil;
-    NSString* callbackId = [arguments objectAtIndex:0];
+    CDVPluginResult* pluginResult = nil;
     
-    // Acquire a reference to the local UIApplication singleton
     UIApplication* app = [UIApplication sharedApplication];
     
     if( ![app isIdleTimerDisabled] ) {
         [app setIdleTimerDisabled:true];
         
-        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        jsString = [result toSuccessCallbackString:callbackId];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"IdleTime Disabled"];
     }
     else {
-        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ILLEGAL_ACCESS_EXCEPTION messageAsString:@"IdleTimer already disabled"];
-        jsString = [result toErrorCallbackString:callbackId];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     
-    [self writeJavascript:jsString];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
-- (void) disable:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
-{    
-    CDVPluginResult* result = nil;
-    NSString* jsString = nil;
-    NSString* callbackId = [arguments objectAtIndex:0];
-    
-    // Acquire a reference to the local UIApplication singleton
+- (void)disable:(CDVInvokedUrlCommand*)command;
+{
+    CDVPluginResult* pluginResult = nil;
+
     UIApplication* app = [UIApplication sharedApplication];
     
-    if( [app isIdleTimerDisabled] ) {
-        [app setIdleTimerDisabled:false];
+    if( ![app isIdleTimerDisabled] ) {
+        [app setIdleTimerDisabled:true];
         
-        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        jsString = [result toSuccessCallbackString:callbackId];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"IdleTime Enabled"];
     }
     else {
-        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ILLEGAL_ACCESS_EXCEPTION messageAsString:@"IdleTimer not disabled"];
-        jsString = [result toErrorCallbackString:callbackId];
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
     }
     
-    [self writeJavascript:jsString];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    
 }
 
 @end

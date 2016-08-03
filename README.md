@@ -1,3 +1,5 @@
+__Please note that I no longer maintain this repo__
+
 PhoneGap-KeepScreenOn
 ===================
 
